@@ -1,32 +1,42 @@
 <template>
-  <div>
-    <h1>{{ titulo }}</h1>
-    <ul>
-      <li v-for="foto of fotos">
-        <img :src="foto.url" :alt="foto.titulo">
-      </li>
-    </ul>
+  <div class="corpo">
+    <meu-menu :rotas="routes"/>
+
+    <transition name="pagina">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
+import { routes } from "./routes";
+import Menu from "./components/shared/menu/Menu.vue";
+
 export default {
-  name: 'app',
-  data () {
+  components: {
+    "meu-menu": Menu
+  },
+  data() {
     return {
-      titulo: 'Alurapic',
-      fotos: [{
-        url: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTwV4kVzT5McBdGSgqlVeRzubrNH_mOrrkKseDOGFURq20HmsrelEfMU7It',
-        titulo: 'Cachorro'
-      }, {
-        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOhmlmzV4-Sifx5BIc2SXeA-1CtZJf8jb8V_vPZyKbXIQJKU-rkxGO6OM',
-        titulo: 'Gato'
-      }]
-    }
+      routes
+    };
   }
-}
+};
 </script>
 
 <style>
+.corpo {
+  font-family: Helvetica, sans-serif;
+  margin: 0 auto;
+  width: 96%;
+}
 
+.pagina-enter-active,
+.pagina-leave-active {
+  transition: opacity 0.3s;
+}
+.pagina-enter,
+.pagina-leave-active {
+  opacity: 0;
+}
 </style>
